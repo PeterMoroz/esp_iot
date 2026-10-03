@@ -25,3 +25,13 @@ A basic web-server could be implemented with library ESP8266WebServer, it provid
 The **mDNS** (multicast DNS) resolves host names to IP addresses in small networks that lack a local name server. It uses the same packet formats and operating semantics as unicast DNS. Creating a simple mDNS is possible using ESP8266mDNS library.
 
 Both web-server and DNS-resolver use synchronous model of handling requests. Their corresponding methods must be called inside the main `loop()` function.
+
+
+#### OTA update
+**OTA** is a way to update device via WiFi. The acronim OTA came from 'Over The Air'. This approach is very handy because wire connection is no needed and device to update can be located anywhere.
+
+###### How it works
+It requires two partitions on Flash memory. The active partition contains firmware which is running now (current version), another partition is used to write new version of firmware. When upload, write and verify of new firmware complete bootloader makes the second partition active and reboot device. 
+
+###### Firmware delivery
+There are few methods to delivery a new binary file to device. One of them runs small HTTP-server on device, when user opens a special web-page in browser he/she can choose binary file which contains new version of firmware.

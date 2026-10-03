@@ -3,12 +3,17 @@
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
 #include <WiFiManager.h>
+#include <ESP8266HTTPUpdateServer.h>
 
 
 #define HOSTNAME "myesp8266"
 #define AP_NAME "My ESP8266 AP"
 
 ESP8266WebServer webServer(80);
+ESP8266HTTPUpdateServer updateServer;
+
+#define UPDATE_USER "admin"
+#define UPDATE_PASS "secret"
 
 
 void handleRoot() {
@@ -37,6 +42,8 @@ void setup() {
   } else {
     Serial.println("mDNS failed to start");
   }
+
+  updateServer.setup(&webServer, "/update", UPDATE_USER, UPDATE_PASS);
 
   webServer.on("/", handleRoot);
   webServer.begin();
